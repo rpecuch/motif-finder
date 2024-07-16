@@ -1,0 +1,2 @@
+Number of occurences of ATTGGG: 2
+Number of occurences of GGTTAA: 1
