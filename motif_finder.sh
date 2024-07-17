@@ -9,23 +9,33 @@ do
     # Search for number of occurrences of motif in FASTA file by printing out each match on a new line then counting the number of lines
     number=`grep -o $line r_bifella.fasta | wc -l`
     # Print out results
-    echo Number of occurences of $line: $number
+    echo "Number of occurences of $line: $number"
     # Add results to motif_count.txt
-    #echo $line $number >> motif_count.txt
+    # echo $line $number >> motif_count.txt
 
+    # Output file name
     fileName=motifs/$line.txt
     # Loop through lines of FASTA file to get content for output file
-    while read gene_line
+    content=`cat r_bifella.fasta`
+    # Change separator to > character
+    IFS='>'
+    for gene in $content
     do
-        # Split line into an array containing gene name and nucleotide string
-        IFS='>' read -a gene <<< $gene_line # String with line of file is the input
-        gene_name=${gene[1]}
-        gene_bases=${gene[0]}
+        # Count number of matches in gene
+        match_count=`grep -c $line <<< $gene`
 
-        # TODO: figure out what is wrong with output
-        # Write gene name and matches to output file
-        echo $gene_name >> $fileName
-        grep -E -o ".{0,5}$line.{0,5}" $gene_bases >> $fileName
-    done < r_bifella.fasta  # FASTA file is the input
+        if [ $match_count -gt 0 ]
+        then
+            # Write gene name to output file (derive by removing all nucleotides from string)
+            # TODO: try to clean this up so spacing is even
+            echo $gene | tr -d ATCG >> $fileName
+            
+            # Write sequences with matches to output file
+            echo $gene | grep -E -o ".{0,3}$line.{0,3}" >> $fileName
+
+            # Add whitespace for readability
+            echo "" >> $fileName
+        fi
+    done
 
 done < interesting_motifs.txt # Motif list file is the input rather than input from user
