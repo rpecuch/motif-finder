@@ -16,6 +16,6 @@ Execution:
 1) Copy over the following files into the directory that you would like to run the script:
 - interesting_motifs.txt
 - r_bifella.fasta
-- week2.sh
+- motif_finder.sh
 
-2) Execute the following command: bash week2.sh interesting_motifs.txt r_bifella.fasta
+2) Execute the following command: bash motif_finder.sh interesting_motifs.txt r_bifella.fasta
