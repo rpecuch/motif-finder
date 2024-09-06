@@ -23,6 +23,6 @@ do
     fileName=motifs/$line.txt
 
     # Write out all matching sequences to output file, include gene name by printing out the line before each sequence with match(es)
-    grep -B1 $line ./$input_genome >> $fileName
+    grep -B1 $line ./$input_genome --no-group-separator >> $fileName
 
 done 
