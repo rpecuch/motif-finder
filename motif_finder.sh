@@ -19,7 +19,7 @@ do
     # Add results to motif_count.txt
     echo $line $number >> motif_count.txt
 
-    # # Define output file name
+    # Define output file name
     fileName=motifs/$line.txt
 
     # Write out all matching sequences to output file, include gene name by printing out the line before each sequence with match(es)
